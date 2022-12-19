@@ -1,5 +1,5 @@
-import React from "react";
-import "./HtmlEditoStyles.css";
+import React, { useState } from "react";
+import "./style.css";
 import { Check } from "@styled-icons/material/Check";
 import { FormatColorText } from "@styled-icons/material/FormatColorText";
 import { Link } from "@styled-icons/material/Link";
@@ -20,7 +20,9 @@ import {
   createFontSizePlugin,
   MARK_COLOR,
   Plate,
-  PlateProvider
+  PlateProvider,
+  TElement,
+  TText,
 } from "@udecode/plate";
 import { BasicMarkToolbarButtons } from "./basic-marks/BasicMarkToolbarButtons";
 import { BasicElementToolbarButtons } from "./basic-elements/BasicElementToolbarButtons";
@@ -31,6 +33,7 @@ import { editableProps } from "./common/editableProps";
 import { plateUI } from "./common/plateUI";
 import { Toolbar } from "./toolbar/Toolbar";
 import { createMyPlugins, MyValue } from "./typescript/plateTypes";
+import Slate from "./Slate";
 
 const plugins = createMyPlugins(
   [
@@ -41,13 +44,22 @@ const plugins = createMyPlugins(
     createLinkPlugin(linkPlugin),
     createListPlugin(),
     createAlignPlugin(),
-    createBasicElementsPlugin()
+    createBasicElementsPlugin(),
   ],
   {
-    components: plateUI
+    components: plateUI,
   }
 );
 
+interface OnChangeHandler {
+  (e: any): void;
+}
+
+type Props = {
+  value: MyValue;
+  onChange: OnChangeHandler;
+  disabled: boolean;
+};
 const AlignToolbarButtons = () => (
   <>
     <AlignToolbarButton value="left" icon={<FormatAlignLeft />} />
@@ -56,17 +68,8 @@ const AlignToolbarButtons = () => (
     <AlignToolbarButton value="justify" icon={<FormatAlignJustify />} />
   </>
 );
-
-interface OnChangeHandler {
-  (e: any): void;
-}
-
-type Props = {
-  initialValue: MyValue | any;
-  onChange: OnChangeHandler;
-};
-
-const HtmlEditor: React.FC<Props> = ({ initialValue, onChange }) => {
+const HtmlEditor: React.FC<Props> = ({ value, onChange, disabled }) => {
+  const [initialValue, setInitialValue] = useState<any>();
   return (
     <>
       <PlateProvider<MyValue>
@@ -74,7 +77,7 @@ const HtmlEditor: React.FC<Props> = ({ initialValue, onChange }) => {
         plugins={plugins}
         onChange={onChange}
       >
-        {/* <Toolbar>
+        <Toolbar>
           <BasicMarkToolbarButtons />
           <ColorPickerToolbarDropdown
             pluginKey={MARK_COLOR}
@@ -85,9 +88,11 @@ const HtmlEditor: React.FC<Props> = ({ initialValue, onChange }) => {
           <ListToolbarButtons />
           <AlignToolbarButtons />
           <BasicElementToolbarButtons />
-        </Toolbar> */}
+        </Toolbar>
 
-        <Plate<MyValue> editableProps={editableProps} />
+        <Plate<MyValue> editableProps={editableProps}>
+          <Slate setInitialValue={setInitialValue} />
+        </Plate>
       </PlateProvider>
     </>
   );

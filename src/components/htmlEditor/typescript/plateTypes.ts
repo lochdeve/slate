@@ -73,19 +73,19 @@ import {
   usePlateSelectors,
   usePlateStates,
   WithOverride,
-} from '@udecode/plate';
+} from "@udecode/plate";
 // import {
 //   ELEMENT_EXCALIDRAW,
 //   TExcalidrawElement,
 // } from '@udecode/plate-ui-excalidraw';
-import { CSSProperties } from 'styled-components';
+import { CSSProperties } from "styled-components";
 
 /**
  * Text
  */
 
 export type EmptyText = {
-  text: '';
+  text: "";
 };
 
 export type PlainText = {
@@ -100,11 +100,11 @@ export interface RichText extends TText, TCommentText {
   code?: boolean;
   kbd?: boolean;
   subscript?: boolean;
-  backgroundColor?: CSSProperties['backgroundColor'];
-  fontFamily?: CSSProperties['fontFamily'];
-  color?: CSSProperties['color'];
-  fontSize?: CSSProperties['fontSize'];
-  fontWeight?: CSSProperties['fontWeight'];
+  backgroundColor?: CSSProperties["backgroundColor"];
+  fontFamily?: CSSProperties["fontFamily"];
+  color?: CSSProperties["color"];
+  fontSize?: CSSProperties["fontSize"];
+  fontWeight?: CSSProperties["fontWeight"];
 }
 
 /**
@@ -148,11 +148,11 @@ export interface MyIndentListProps extends MyIndentProps {
 }
 
 export interface MyLineHeightProps {
-  lineHeight?: CSSProperties['lineHeight'];
+  lineHeight?: CSSProperties["lineHeight"];
 }
 
 export interface MyAlignProps {
-  align?: CSSProperties['textAlign'];
+  align?: CSSProperties["textAlign"];
 }
 
 export interface MyBlockElement
